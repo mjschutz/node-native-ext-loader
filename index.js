@@ -11,7 +11,7 @@ module.exports = function(content) {
   };
 
   const config = Object.assign(defaultConfig, this.query);
-  const fileName = path.basename(this.resourcePath);
+  let fileName = path.basename(this.resourcePath);
 
   if (config.emit) {
     if (typeof config.emit == 'string') {
