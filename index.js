@@ -1,4 +1,7 @@
 var path = require("path");
+var _loaderUtils = _interopRequireDefault(require("loader-utils"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = function(content) {
   const defaultConfig = {
@@ -11,6 +14,14 @@ module.exports = function(content) {
   const fileName = path.basename(this.resourcePath);
 
   if (config.emit) {
+    if (typeof config.emit == 'string') {
+	  const url = _loaderUtils.default.interpolateName(this, config.emit || '[contenthash].[ext]', {
+	    content: content,
+	  });
+		
+	  fileName = url;
+	}
+	
     if (this.emitFile) {
       this.emitFile(fileName, content, false);
     } else {
